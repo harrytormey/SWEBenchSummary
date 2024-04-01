@@ -1,0 +1,30 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Model Loading and Text Generation
+
+The SWEBench project involves the use of large language models for various tasks, including live model inference based on GitHub issues. Two key files, `run_llama.py` and `run_api.py`, handle the loading of models and the generation of text, though they differ in their approaches.
+
+## Loading LLaMA Model
+[This subsection will be written later]
+
+## Generating Text with LLaMA
+[This subsection will be written later]
+
+## Interacting with OpenAI API
+[This subsection will be written later]
+
+## Interacting with Anthropic API
+[This subsection will be written later]
+
+The main difference between `run_llama.py` and `run_api.py` lies in the way they handle model loading and text generation. `run_llama.py` is responsible for loading the LLaMA model and tokenizer, and generating text using the model's capabilities. On the other hand, `run_api.py` focuses on interacting with the OpenAI and Anthropic APIs to generate text, without directly loading the models.
+
+<Callout type="info">
+The LLaMA model is a large language model developed by Anthropic, while the OpenAI and Anthropic APIs provide access to their respective language models for text generation.
+</Callout>
+
+By comparing these two scripts, you can gain insights into the different approaches for model loading and text generation in the SWEBench project. The choice between using the LLaMA model directly or leveraging the OpenAI and Anthropic APIs may depend on factors such as model availability, performance requirements, and integration with other components.
+
+[Link to Loading LLaMA Model subsection](/model-loading-text-generation/loading-llama-model)
+[Link to Generating Text with LLaMA subsection](/model-loading-text-generation/generating-text-llama)
+[Link to Interacting with OpenAI API subsection](/model-loading-text-generation/interacting-openai-api)
+[Link to Interacting with Anthropic API subsection](/model-loading-text-generation/interacting-anthropic-api)

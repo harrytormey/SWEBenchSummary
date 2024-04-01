@@ -1,0 +1,140 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Generating Text with LLaMA
+
+The `run_llama.py` script is responsible for loading the LLaMA model and tokenizer, and generating text using the model. Let's dive into the details of this process.
+
+## Loading the LLaMA Model
+
+The first step in generating text with the LLaMA model is to load the model and tokenizer. This is done in the `load_model` function:
+
+```python
+def load_model(model_path, adapter_path=None):
+    """
+    Load the LLaMA model and tokenizer.
+
+    Args:
+        model_path (str): Path to the LLaMA model checkpoint.
+        adapter_path (str, optional): Path to the PEFT adapter checkpoint.
+
+    Returns:
+        Tuple[PeftModel, LlamaTokenizer]: The loaded LLaMA model and tokenizer.
+    """
+    # Load the LLaMA model
+    model = LlamaForCausalLM.from_pretrained(model_path)
+
+    # Load the PEFT adapter (if provided)
+    if adapter_path:
+        model = PeftModel.from_pretrained(model, adapter_path)
+
+    # Load the LLaMA tokenizer
+    tokenizer = LlamaTokenizer.from_pretrained(model_path)
+
+    return model, tokenizer
+```
+
+This function takes the paths to the LLaMA model checkpoint and the PEFT adapter checkpoint (if available) and returns the loaded model and tokenizer. The `LlamaForCausalLM` class from the `transformers` library is used to load the LLaMA model, and the `LlamaTokenizer` is used to load the corresponding tokenizer.
+
+If an adapter path is provided, the `PeftModel.from_pretrained` function is used to load the PEFT adapter onto the LLaMA model, allowing for efficient fine-tuning of the model.
+
+## Generating Text
+
+Once the model and tokenizer are loaded, you can use the `generate` function to generate text based on input instances:
+
+```python
+def generate(
+    model: PeftModel,
+    tokenizer: LlamaTokenizer,
+    instances: List[str],
+    max_length: int = 512,
+    num_return_sequences: int = 1,
+    top_p: float = 0.95,
+    top_k: int = 50,
+    num_beams: int = 5,
+    early_stopping: bool = True,
+    no_repeat_ngram_size: int = 3,
+) -> List[str]:
+    """
+    Generate text using the LLaMA model.
+
+    Args:
+        model (PeftModel): The loaded LLaMA model.
+        tokenizer (LlamaTokenizer): The loaded LLaMA tokenizer.
+        instances (List[str]): The input instances to generate text for.
+        max_length (int): The maximum length of the generated text.
+        num_return_sequences (int): The number of generated sequences to return.
+        top_p (float): The cumulative probability for top-p (nucleus) sampling.
+        top_k (int): The number of highest probability tokens to keep for top-k sampling.
+        num_beams (int): The number of beams for beam search.
+        early_stopping (bool): Whether to stop the beam search when all beams have finished.
+        no_repeat_ngram_size (int): The size of the ngrams that cannot be repeated.
+
+    Returns:
+        List[str]: The generated text sequences.
+    """
+    # Tokenize the input instances
+    input_ids = [tokenizer(instance, return_tensors="pt").input_ids for instance in instances]
+
+    # Generate text using the model
+    output_ids = model.generate(
+        input_ids,
+        max_length=max_length,
+        num_return_sequences=num_return_sequences,
+        top_p=top_p,
+        top_k=top_k,
+        num_beams=num_beams,
+        early_stopping=early_stopping,
+        no_repeat_ngram_size=no_repeat_ngram_size,
+    )
+
+    # Decode the generated text
+    output_text = [tokenizer.decode(output_id, skip_special_tokens=True) for output_id in output_ids]
+
+    return output_text
+```
+
+This function takes the loaded LLaMA model and tokenizer, along with a list of input instances, and generates text using the model. The function applies various sampling techniques, such as top-p (nucleus) sampling and beam search, to control the generation process.
+
+The input instances are first tokenized using the LLaMA tokenizer, and then passed to the `model.generate` function to generate the output text sequences. Finally, the generated text is decoded from the output token IDs using the tokenizer.
+
+<Callout type="info">
+The `generate` function allows you to customize the text generation process by adjusting parameters such as `max_length`, `num_return_sequences`, `top_p`, `top_k`, `num_beams`, and `no_repeat_ngram_size`. These parameters can be tuned to control the quality, diversity, and coherence of the generated text.
+</Callout>
+
+## Example Usage
+
+Here's an example of how you can use the `load_model` and `generate` functions to generate text using the LLaMA model:
+
+```python
+# Load the LLaMA model and tokenizer
+model, tokenizer = load_model(model_path="path/to/llama/model", adapter_path="path/to/peft/adapter")
+
+# Define the input instances
+instances = [
+    "The quick brown fox jumps over the lazy dog.",
+    "Artificial intelligence is transforming the world.",
+    "Machine learning algorithms are becoming more advanced."
+]
+
+# Generate text using the LLaMA model
+generated_text = generate(
+    model=model,
+    tokenizer=tokenizer,
+    instances=instances,
+    max_length=100,
+    num_return_sequences=3,
+    top_p=0.95,
+    top_k=50,
+    num_beams=5
+)
+
+# Print the generated text
+for text in generated_text:
+    print(text)
+```
+
+In this example, we first load the LLaMA model and tokenizer using the `load_model` function. We then define a list of input instances and use the `generate` function to generate text based on these instances. The generated text is then printed to the console.
+
+By adjusting the parameters in the `generate` function, you can control the characteristics of the generated text, such as its length, diversity, and coherence.
+
+Remember, the LLaMA model is a powerful language model that can generate high-quality text, but it's important to use it responsibly and ethically. Always consider the potential impact of the generated text and ensure that it aligns with your intended use case.

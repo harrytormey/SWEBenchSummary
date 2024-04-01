@@ -1,0 +1,35 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Utility Functions
+
+The `utils.py` file in the SWEBench codebase provides a collection of utility functions that support various aspects of the project, such as environment setup, file operations, and data processing. These functions serve as the backbone for many of the project's components, ensuring seamless integration and efficient data handling.
+
+## Environment Setup and Management
+
+One of the key responsibilities of the utility functions is to handle the setup and management of the project's environments. This includes functions for fetching and installing required dependencies, as well as managing the configuration of test environments.
+
+<Callout type="info">
+The `fetch_requirements` function, for example, is responsible for fetching the necessary packages and installing them in the appropriate environment. This function ensures that the project's dependencies are readily available, simplifying the setup process for users.
+</Callout>
+
+## File Operations and Data Processing
+
+In addition to environment management, the utility functions also provide a suite of tools for working with files and data. These functions handle tasks such as extracting patches from model outputs, splitting instances for parallel processing, and fetching data from various sources.
+
+<Callout type="tip">
+The `extract_patch` function is a good example of a utility function that simplifies the process of extracting code patches from model outputs. This function takes the model's output and extracts the relevant code changes, making it easier to apply the patches to test instances.
+</Callout>
+
+## Integrating Utility Functions
+
+The utility functions in `utils.py` are designed to be easily integrated into other parts of the SWEBench codebase. By providing a centralized location for common functionality, the code becomes more modular and maintainable, allowing developers to focus on their specific tasks without having to reimplement basic operations.
+
+For instance, the `split_instances` function is used by the `engine_evaluation.py` script to divide task instances into smaller groups for parallel processing. This promotes efficient utilization of system resources and helps to scale the evaluation process.
+
+```mermaid
+graph LR
+  A[engine_evaluation.py] --> B[utils.py]
+  B[utils.py] -- split_instances --> C[Parallel Processing]
+```
+
+By leveraging these utility functions, the SWEBench project ensures a consistent and reliable approach to common tasks, enabling developers to focus on the core functionality of the system.

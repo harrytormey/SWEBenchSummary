@@ -1,0 +1,57 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Evaluating Retrieval Results
+
+The `eval_retrieval.py` script in the SWEBench codebase is responsible for evaluating the retrieval results of the model predictions. It compares the retrieved files to the gold standard files and calculates the recall metrics to measure the performance of the model.
+
+Let's dive into the details of how this evaluation process works:
+
+## Calculating Recall Metrics
+
+The primary goal of the `eval_retrieval.py` script is to compute the recall metrics for the retrieved files. Recall is a crucial metric in the context of code retrieval, as it measures how many of the relevant files were successfully retrieved by the model.
+
+<Steps>
+### Step 1
+
+The script first loads the dataset, which includes the task instances, the retrieved files, and the gold standard files.
+
+### Step 2
+
+For each task instance, the script compares the set of retrieved files to the set of gold standard files. It calculates the recall by dividing the number of retrieved gold files by the total number of gold files for that task.
+
+### Step 3
+
+The script then aggregates the recall values across all task instances and computes the mean recall. This provides an overall measure of the model's ability to retrieve the relevant files.
+</Steps>
+
+## Handling Missing Gold Files
+
+One challenge that the `eval_retrieval.py` script addresses is the case where gold standard files are missing for certain task instances. This can happen if the gold files are not available or have been removed from the dataset.
+
+<Callout type="info">
+To handle missing gold files, the script skips the evaluation for those task instances and only considers the instances with available gold files when computing the final recall metrics.
+</Callout>
+
+## Improving Evaluation Accuracy
+
+The `eval_retrieval.py` script provides a solid foundation for evaluating retrieval results. However, there are a few areas where the evaluation process can be further improved:
+
+1. **Accounting for File Relevance**: The current implementation treats all retrieved files equally, regardless of their relevance to the task. Incorporating a weighting scheme based on file relevance could provide a more nuanced evaluation of the model's performance.
+
+2. **Contextual Evaluation**: The script could be enhanced to consider the context of the retrieved files, such as their relation to the problem statement or the quality of the code. This could give a more holistic understanding of the model's ability to retrieve relevant and useful files.
+
+3. **Automated Gold File Generation**: Instead of relying on manually curated gold files, the evaluation process could be automated by generating gold files based on predefined criteria. This would make the evaluation more scalable and less prone to human bias.
+
+By addressing these areas for improvement, the `eval_retrieval.py` script can provide even more comprehensive and reliable evaluation of the model's retrieval capabilities.
+
+## Example Usage
+
+To run the `eval_retrieval.py` script, you can use the following command:
+
+```
+python eval_retrieval.py --retrieved-files-path /path/to/retrieved/files --gold-files-path /path/to/gold/files
+```
+
+This will generate a report with the calculated recall metrics, highlighting the model's performance in retrieving the relevant files.
+
+For more information on the usage and configuration of the `eval_retrieval.py` script, refer to the [Evaluating Retrieval Results](/dataset-creation/evaluating-retrieval-results) section of the SWEBench documentation.

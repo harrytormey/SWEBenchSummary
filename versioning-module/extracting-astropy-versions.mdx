@@ -1,0 +1,52 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Extracting Astropy Versions
+
+The `get_versions_astropy.py` file is responsible for extracting version information for the *Astropy* library. Astropy is a popular astronomy library in Python, used for a wide range of tasks, from data analysis to visualization.
+
+In this module, we have implemented a set of functions that retrieve version data from a specific webpage, match it with task instances, and save the updated task instances with version information.
+
+## Retrieving Version Data
+
+The key steps in the version extraction process are as follows:
+
+1. **Fetch Version Data**: We use the `requests` library to make an HTTP request to a webpage that contains the version information for the Astropy library.
+
+2. **Parse HTML Content**: Once we have the webpage content, we utilize the `BeautifulSoup` library to parse the HTML and extract the relevant version data.
+
+3. **Match Versions with Tasks**: To associate the version data with the task instances, we match the version release dates with the task creation dates. This allows us to assign the correct version information to each task.
+
+4. **Save Updated Instances**: Finally, we save the updated task instances, which now include the extracted version information, to a specified output path.
+
+<Callout type="info">
+The version matching process is critical, as it ensures that the correct Astropy version is associated with each task instance. This is particularly important when analyzing the performance of models or investigating version-specific issues.
+</Callout>
+
+## Potential Improvements
+
+While the current implementation is functional, there are a few areas where improvements could be made:
+
+1. **Error Handling**: Enhance the error handling to provide more detailed information in case the webpage structure changes or the version data is not available in the expected format.
+
+2. **Caching Mechanisms**: Implement caching mechanisms to avoid unnecessary HTTP requests and improve the overall performance of the version extraction process.
+
+3. **Version Matching Algorithm**: Explore ways to enhance the version matching algorithm, potentially by incorporating more advanced date parsing or using additional context information to improve the accuracy of the version-to-task associations.
+
+By addressing these areas, the version extraction process can become more robust, efficient, and reliable, providing better version data for the overall SWEBench project.
+
+## Example Usage
+
+To use the `get_versions_astropy.py` module, you can call the main function and provide the necessary input and output paths:
+
+```python
+from get_versions_astropy import main
+
+input_path = 'path/to/task/instances'
+output_path = 'path/to/output/directory'
+
+main(input_path, output_path)
+```
+
+This will retrieve the Astropy version information, match it with the task instances, and save the updated instances to the specified output directory.
+
+For more information on the SWEBench project and its other components, please refer to the [Introduction](/introduction) and other relevant sections.

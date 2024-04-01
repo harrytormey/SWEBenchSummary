@@ -1,0 +1,46 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# LLaMA Model Architecture
+
+The LLaMA (Large Language Model Meta-AI) model is a powerful language model developed by Meta AI. It serves as the backbone of the SWEBench project, providing the core model architecture for text generation and understanding. Let's dive into the key components that define the LLaMA model architecture.
+
+## Defining the LLaMA Model
+The LLaMA model is defined in the `modeling_flash_llama.py` file within the `llamao` module. This module contains the classes and functions responsible for the model's architecture, including the attention mechanism, MLP layers, rotary embeddings, and model configurations.
+
+One of the core components of the LLaMA model is the `LlamaModel` class, which serves as the main entry point for the model. This class encapsulates the various building blocks of the model, such as the attention layers, MLP layers, and embedding layers.
+
+<Callout type="info">
+The LLaMA model is designed to be efficient and scalable, allowing it to handle large amounts of text data and generate high-quality outputs. The modular architecture of the model enables easy customization and integration into various natural language processing applications.
+</Callout>
+
+## Loading the LLaMA Model
+To use the LLaMA model in the SWEBench project, you need to load the model and its associated tokenizer. This is handled in the `run_llama.py` file, where the following steps are performed:
+
+<Steps>
+### Step 1
+Load the LLaMA model and tokenizer from the `transformers` library, specifying the appropriate model and configuration paths.
+
+### Step 2
+If available, load the PEFT (Prompt-based Efficient Fine-Tuning) adapters for the LLaMA model. These adapters can be used for efficient fine-tuning of the model on specific tasks.
+
+### Step 3
+Set up the device (CPU or GPU) to be used for model inference and text generation.
+</Steps>
+
+By following these steps, you can initialize the LLaMA model and prepare it for use within the SWEBench project.
+
+## Generating Text with the LLaMA Model
+Once the LLaMA model is loaded, you can use it to generate text based on input instances. The `generate` function in the `run_llama.py` file handles the text generation process. It takes the input instances, passes them through the model, and generates the output text based on the model's predictions.
+
+The text generation process involves several steps:
+
+1. Tokenize the input instances using the loaded tokenizer.
+2. Pass the tokenized inputs through the LLaMA model to obtain the model's output logits.
+3. Apply stopping criteria, such as maximum length or specific stop tokens, to control the generated text.
+4. Decode the model's output to generate the final text.
+
+The generated text is then processed and saved to an output file in JSONL format for further use or evaluation.
+
+By understanding the LLaMA model architecture and its integration within the SWEBench project, you can gain insights into how the model is leveraged for task-specific text generation and understanding. The modular design of the LLaMA model allows for easy customization and adaptation to various natural language processing tasks.
+
+For more detailed information on the specific components of the LLaMA model, such as the attention mechanism, MLP layers, rotary embeddings, and model configurations, please refer to the relevant subsections.

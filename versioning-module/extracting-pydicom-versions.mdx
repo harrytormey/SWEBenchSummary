@@ -1,0 +1,53 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Extracting Pydicom Versions
+
+The *Pydicom* library is a crucial component in the SWEBench project, and accurately tracking its version information is paramount for ensuring consistent and reliable data processing. The `get_versions_pydicom.py` file in the *versioning/extract_web* module is responsible for this crucial task.
+
+## Purpose and Functionality
+
+The primary purpose of this file is to **extract version information for the Pydicom library** from a specific webpage, match it with the task instances, and save the updated task instances with the version information. This allows the project to maintain a comprehensive understanding of the software dependencies and their evolution over time.
+
+<Callout type="info">
+The versioning information is essential for accurately attributing task instances to specific library versions, enabling better analysis and troubleshooting of any issues that may arise.
+</Callout>
+
+## Third-Party Libraries
+
+To accomplish this task, the file utilizes the following third-party libraries:
+
+- **`requests`**: This library is used for making HTTP requests to retrieve the webpage content containing the Pydicom version information.
+- **`BeautifulSoup`**: This library is employed for parsing the HTML content of the webpage, allowing the extraction of the specific version data.
+
+## Data Flow
+
+The data flow within the `get_versions_pydicom.py` file can be summarized as follows:
+
+<Steps>
+### Step 1
+Retrieve the task instances from a specified path on the file system.
+
+### Step 2
+Fetch the version data from a webpage related to the Pydicom library.
+
+### Step 3
+Parse the HTML content of the webpage using BeautifulSoup to extract the version information.
+
+### Step 4
+Match the extracted version data with the task creation dates to assign the appropriate versions to the tasks.
+
+### Step 5
+Save the updated task instances, now with the version information, to a specified path on the file system.
+</Steps>
+
+## Potential Improvements
+
+While the current implementation is functional, there are a few areas where improvements could be made:
+
+1. **Error Handling**: Enhance the error handling mechanisms to gracefully handle cases where the structure of the webpage changes, which could potentially break the version extraction process.
+
+2. **Caching Mechanisms**: Implement caching mechanisms to avoid unnecessary HTTP requests and improve the overall performance of the version extraction process.
+
+3. **Version Matching Algorithm**: Explore ways to enhance the version matching algorithm to improve the accuracy of assigning versions to task instances, particularly in cases where the task creation dates may not align perfectly with the version release dates.
+
+By addressing these areas, the `get_versions_pydicom.py` file can be further refined to provide a more robust and efficient version extraction process, ensuring the reliability of the SWEBench project's data.

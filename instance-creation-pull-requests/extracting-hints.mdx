@@ -1,0 +1,54 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Extracting Hints
+
+In the process of creating task instances from pull requests, extracting **hints** is a crucial step. Hints are additional pieces of information that can provide valuable context for the task at hand, beyond just the problem statement and code patch.
+
+<Callout type="info">
+Hints can include things like the developer's thought process, implementation strategies, or specific areas of concern that they want to address.
+</Callout>
+
+To extract hints from pull requests, we need to analyze the textual content of the pull request description and comments. This involves scanning for keywords, phrases, or patterns that indicate the presence of useful hints.
+
+## Identifying Hint Patterns
+The first step is to define a set of patterns that we can use to identify potential hints within the pull request data. These patterns can be based on:
+
+- Specific keywords (e.g., "hint", "note", "tip")
+- Sentence structures (e.g., "I'm concerned about...", "This might help with...")
+- Contextual clues (e.g., mentions of specific challenges, implementation strategies)
+
+By defining these patterns, we can create a robust system for extracting relevant hints from the pull request data.
+
+## Extracting Hints
+Once we have identified the patterns, we can use them to extract the hints from the pull request description and comments. This can be done using a combination of techniques, such as:
+
+<Steps>
+### Step 1
+Iterate through the pull request data, scanning for the defined hint patterns.
+
+### Step 2
+Extract the text surrounding the identified patterns, which likely contains the relevant hint information.
+
+### Step 3
+Perform some basic natural language processing (NLP) on the extracted text to refine the hints, such as:
+- Removing irrelevant or redundant information
+- Normalizing the text (e.g., converting to lowercase, removing punctuation)
+- Grouping related hints together
+</Steps>
+
+## Integrating Hints into Instances
+Once the hints have been extracted, they can be integrated into the task instances that are created from the pull request data. This can involve:
+
+- Associating the hints with the relevant problem statement and code patch
+- Storing the hints as additional metadata or features for the task instance
+- Using the hints to augment the training data or generate more diverse examples for the model
+
+By incorporating the extracted hints, the task instances become more informative and comprehensive, providing the model with additional context and insights to improve its performance.
+
+<Callout type="tip">
+Remember to handle edge cases and potential errors during the hint extraction process. This can include dealing with poorly formatted pull requests, missing or incomplete data, and other challenges that may arise.
+</Callout>
+
+Extracting hints from pull requests is a valuable step in the instance creation process, as it allows us to capture the nuanced context and domain-specific knowledge that developers share in their discussions. By leveraging these hints, we can enhance the quality and utility of the task instances, ultimately leading to better-performing models.
+
+For more information on the overall instance creation process, check out the [Creating Instances](/instance-creation-pull-requests/creating-instances-pull-requests) section.

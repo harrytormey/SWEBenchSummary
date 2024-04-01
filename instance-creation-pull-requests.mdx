@@ -1,0 +1,64 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Instance Creation from Pull Requests
+
+The `build_dataset.py` script is responsible for creating task instances from pull requests in a repository. This is a crucial step in the SWEBench pipeline, as it extracts the necessary information to build a dataset for model training and evaluation.
+
+The script leverages various utilities and functions to retrieve pull request data, process it, and generate instances. Let's dive into the details of this important component.
+
+## Extracting Patches and Problem Statements
+
+The core functionality of `build_dataset.py` lies in its ability to extract relevant information from pull requests. This includes *code patches* that represent the changes made in the pull request, as well as *problem statements* that describe the issue being addressed.
+
+<Callout type="info">
+The script uses custom functions from the `utils.py` module to handle the extraction of patches and problem statements from pull request data.
+</Callout>
+
+By processing the pull request data, the script is able to create instances that consist of the problem statement and the corresponding code patch. This is the foundation for the dataset that will be used for model training and evaluation.
+
+## Validating Pull Requests and Instances
+
+To ensure the quality and consistency of the dataset, `build_dataset.py` also includes validation checks for both the pull requests and the generated instances.
+
+<Callout type="warning">
+The script checks for various criteria, such as the presence of a problem statement, the validity of the code patch, and the overall consistency of the pull request data.
+</Callout>
+
+Only the instances that pass these validation checks are included in the final dataset, helping to maintain the integrity and reliability of the SWEBench project.
+
+## Creating Instances
+
+The script's main function, `main()`, orchestrates the entire process of creating task instances from pull requests. It follows these steps:
+
+<Steps>
+### Step 1
+Retrieve pull request data from a JSONL file.
+
+### Step 2
+Process each pull request, extracting the necessary information (patches, problem statements, hints).
+
+### Step 3
+Validate the pull request data and the generated instances based on the defined criteria.
+
+### Step 4
+Save the valid instances to an output file in a specified format.
+</Steps>
+
+By following this structured approach, `build_dataset.py` ensures that the dataset creation process is efficient, reliable, and aligned with the project's requirements.
+
+## Potential Improvements
+
+While the current implementation of `build_dataset.py` is functional, there are always opportunities for improvement. Some areas that could be explored include:
+
+- Enhancing error handling and exception management for more robust data processing.
+- Optimizing the extraction and validation algorithms for better performance and scalability.
+- Implementing caching mechanisms to avoid unnecessary API calls or data retrieval.
+- Expanding the validation criteria to cover a wider range of potential issues in pull requests.
+
+By addressing these areas, the `build_dataset.py` script can become even more reliable, efficient, and adaptable, further strengthening the SWEBench project.
+
+[Extracting Patches](/instance-creation-pull-requests/extracting-patches-pull-requests)
+[Extracting Problem Statements](/instance-creation-pull-requests/extracting-problem-statements)
+[Extracting Hints](/instance-creation-pull-requests/extracting-hints)
+[Validating Pull Requests](/instance-creation-pull-requests/validating-pull-requests)
+[Creating Instances](/instance-creation-pull-requests/creating-instances-pull-requests)

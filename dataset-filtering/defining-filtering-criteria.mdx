@@ -1,0 +1,120 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Defining Filtering Criteria
+
+The `criteria.py` file in the SWEBench codebase contains a set of functions that define the filtering criteria for creating a lite version of the dataset. These criteria functions are responsible for checking specific patterns or characteristics in the task instances and determining whether they should be included in the lite dataset.
+
+## Importance of Filtering Criteria
+
+Filtering the task instances is a crucial step in the dataset creation process. By applying specific criteria, you can curate a subset of the dataset that is more manageable, focused, and aligned with your project's requirements. This lightweight version of the dataset can be used for various purposes, such as:
+
+- **Faster Prototyping**: The lite dataset allows you to quickly experiment and iterate on your models, reducing the time and resources required for initial testing and development.
+- **Targeted Evaluation**: By focusing on a specific set of task instances, you can more effectively evaluate your model's performance on the most relevant and challenging cases.
+- **Enhanced Reproducibility**: The lite dataset provides a consistent and controlled environment for benchmarking and comparing different models or approaches.
+
+## Criteria Functions
+
+The `criteria.py` file defines several criteria functions, each focusing on a specific aspect of the task instances. Let's explore some of these functions:
+
+### `has_code_changes`
+
+This function checks if a task instance has any code changes associated with it. It's useful for filtering out instances that do not have a code patch, as they may not be as relevant for the code-related tasks you're targeting.
+
+```python
+def has_code_changes(instance):
+    """
+    Checks if the task instance has any code changes associated with it.
+    
+    Args:
+        instance (dict): The task instance to be evaluated.
+    
+    Returns:
+        bool: True if the instance has code changes, False otherwise.
+    """
+    return len(instance.get("patch", "")) > 0
+```
+
+<Callout type="info">
+The `"patch"` field in the task instance dictionary contains the code changes associated with the task. If this field is present and non-empty, the function returns `True`, indicating that the instance has code changes.
+</Callout>
+
+### `has_description_length_between`
+
+This function checks if the length of the task description (problem statement) falls within a specified range. This can be useful for filtering out instances with too short or too long descriptions, ensuring that the lite dataset focuses on task instances with a suitable level of detail.
+
+```python
+def has_description_length_between(instance, min_length, max_length):
+    """
+    Checks if the length of the task description is between the specified minimum and maximum lengths.
+    
+    Args:
+        instance (dict): The task instance to be evaluated.
+        min_length (int): The minimum length of the description.
+        max_length (int): The maximum length of the description.
+    
+    Returns:
+        bool: True if the description length is between the specified range, False otherwise.
+    """
+    description = instance.get("problem_statement", "")
+    return min_length <= len(description) <= max_length
+```
+
+<Callout type="tip">
+You can adjust the `min_length` and `max_length` parameters to suit your specific requirements. This allows you to fine-tune the filtering based on the desired length of the task descriptions.
+</Callout>
+
+### `contains_keywords`
+
+This function checks if the task description (problem statement) contains a specific set of keywords. This can be useful for filtering out instances that are not relevant to the domain or focus of your project.
+
+```python
+def contains_keywords(instance, keywords):
+    """
+    Checks if the task description contains any of the specified keywords.
+    
+    Args:
+        instance (dict): The task instance to be evaluated.
+        keywords (list): A list of keywords to search for in the description.
+    
+    Returns:
+        bool: True if the description contains any of the keywords, False otherwise.
+    """
+    description = instance.get("problem_statement", "").lower()
+    return any(keyword.lower() in description for keyword in keywords)
+```
+
+<Callout type="warning">
+Make sure to keep the `keywords` list up-to-date and relevant to your project's focus. Regularly reviewing and updating the keywords can help ensure the effectiveness of the filtering process.
+</Callout>
+
+### `has_test_coverage`
+
+This function checks if the task instance has any associated test coverage information. This can be useful for filtering out instances that do not have sufficient testing, as they may not be as suitable for evaluating code-related tasks.
+
+```python
+def has_test_coverage(instance):
+    """
+    Checks if the task instance has any associated test coverage information.
+    
+    Args:
+        instance (dict): The task instance to be evaluated.
+    
+    Returns:
+        bool: True if the instance has test coverage information, False otherwise.
+    """
+    return "test_coverage" in instance and instance["test_coverage"] is not None
+```
+
+<Callout type="note">
+The `"test_coverage"` field in the task instance dictionary is expected to contain information about the test coverage associated with the task. If this field is present and non-null, the function returns `True`.
+</Callout>
+
+These are just a few examples of the criteria functions defined in the `criteria.py` file. You can add more functions to suit your specific needs, such as checking for the presence of comments, the complexity of the code changes, or the likelihood of the task being a "bug fix" or a "feature addition".
+
+## Applying Filtering Criteria
+
+To use the criteria functions in the dataset creation process, you can refer to the [Applying Filtering Criteria](/dataset-filtering/applying-filtering-criteria) section, where you'll learn how to combine these functions and apply them to the task instances.
+
+[Applying Filtering Criteria](/dataset-filtering/applying-filtering-criteria)
+
+By defining and leveraging these filtering criteria, you can create a focused and optimized lite version of the SWEBench dataset, tailored to your project's requirements and goals.

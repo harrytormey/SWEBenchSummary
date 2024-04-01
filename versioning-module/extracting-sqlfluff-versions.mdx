@@ -1,0 +1,75 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Extracting SQLFluff Versions
+
+The SWEBench project provides functionality for extracting version information for the SQLFluff library, a popular SQL linting and formatting tool. This is achieved through the `get_versions_sqlfluff.py` file in the `versioning/extract_web` module.
+
+The key aspects of this functionality are:
+
+1. **Fetching Version Data from GitHub Releases**: Instead of scraping a webpage, the script interacts directly with the GitHub API to retrieve the latest release information for the SQLFluff repository.
+
+2. **Matching Versions with Task Instances**: The script matches the extracted version data with the creation dates of task instances, allowing it to assign the appropriate SQLFluff version to each task.
+
+3. **Saving Updated Task Instances**: Once the version information is associated with the task instances, the script saves the updated task instances to a specified output path.
+
+Let's dive into the implementation details:
+
+## Interacting with the GitHub API
+
+The script uses the `ghapi` library to interact with the GitHub API and fetch the release information for the SQLFluff repository. Here's a simplified example of how the version data is retrieved:
+
+```python
+from ghapi.all import GhApi
+
+def get_sqlfluff_versions():
+    api = GhApi()
+    releases = api.repos.list_releases('sqlfluff', 'sqlfluff')
+    versions = [release.tag_name for release in releases]
+    return versions
+```
+
+This function retrieves the list of releases for the SQLFluff repository and extracts the version information from the `tag_name` field of each release.
+
+## Matching Versions with Task Instances
+
+To associate the extracted versions with the task instances, the script needs to compare the task creation dates with the release dates. This is done using the following logic:
+
+```python
+def match_sqlfluff_versions(tasks, versions):
+    version_dates = {version: get_release_date(version) for version in versions}
+    for task in tasks:
+        task_date = task['created_at']
+        for version, release_date in version_dates.items():
+            if task_date >= release_date:
+                task['sqlfluff_version'] = version
+                break
+    return tasks
+```
+
+The `match_sqlfluff_versions` function first creates a dictionary that maps each version to its corresponding release date. Then, it iterates through the task instances and compares the task creation date with the release dates. The first matching version is assigned to the task instance, and the updated task instances are returned.
+
+<Callout type="info">
+In this example, the `get_release_date` function is used to retrieve the release date for a given version. The implementation of this function is not shown here, but it would likely involve making additional API calls or parsing release metadata.
+</Callout>
+
+## Saving Updated Task Instances
+
+After matching the versions with the task instances, the script saves the updated task instances to a specified output path:
+
+```python
+def save_tasks(tasks, output_path):
+    with open(output_path, 'w') as f:
+        for task in tasks:
+            f.write(json.dumps(task) + '\n')
+```
+
+The `save_tasks` function iterates through the updated task instances and writes them to the output file in JSONL (JSON Lines) format, where each line represents a single task instance.
+
+By following this process, the SWEBench project is able to effectively extract and associate SQLFluff version information with the relevant task instances, which is crucial for understanding the context and dependencies of the tasks.
+
+If you'd like to learn more about the other versioning functionalities in the SWEBench project, you can check out the following sections:
+
+- [Extracting Pydicom Versions](/versioning-module/extracting-pydicom-versions)
+- [Extracting Xarray Versions](/versioning-module/extracting-xarray-versions)
+- [Extracting Matplotlib Versions](/versioning-module/extracting-matplotlib-versions)
+- [Extracting Astropy Versions](/versioning-module/extracting-astropy-versions)

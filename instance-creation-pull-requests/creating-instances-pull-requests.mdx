@@ -1,0 +1,60 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Creating Instances
+
+When it comes to creating task instances from pull requests, the `build_dataset.py` script plays a crucial role. This file is responsible for extracting the necessary information from pull requests, such as patches, problem statements, and hints, and then using that data to create instances for the SWEBench dataset.
+
+Let's dive into the key steps involved in this process:
+
+## Extracting Patches
+
+The first step in creating instances is to extract the code patches from the pull requests. The script leverages the `utils.py` file, which contains a function called `extract_patch()`. This function takes in the pull request data and returns the associated patches.
+
+<Callout type="info">
+Extracting patches is an important step as it allows the model to learn from the specific code changes made in the pull requests.
+</Callout>
+
+## Extracting Problem Statements
+
+In addition to the patches, the script also extracts the problem statements from the pull requests. This information is typically found in the pull request description or title, and it provides the context for the code changes. The `utils.py` file again comes into play, with a function called `get_problem_statement()` responsible for this extraction.
+
+<Callout type="tip">
+Having access to the problem statements helps the model better understand the intent behind the code changes, which can improve its ability to generate relevant patches.
+</Callout>
+
+## Extracting Hints
+
+Finally, the script also attempts to extract any hints or additional information that may be present in the pull request. This can include references to related issues, links to external resources, or any other relevant metadata. The `utils.py` file provides a function called `get_hints()` for this purpose.
+
+<Callout type="note">
+Hints can be valuable as they provide additional context and guidance to the model, potentially leading to more accurate and relevant code patch generations.
+</Callout>
+
+## Validating Pull Requests
+
+Before creating instances, the script performs a validation step to ensure that the pull requests meet certain criteria. This includes checking for the presence of a patch, problem statement, and hints. If any of these required elements are missing, the pull request is likely to be skipped.
+
+<Steps>
+### Step 1
+The script checks if the pull request has a valid patch associated with it. If no patch is found, the pull request is considered invalid and will not be used to create an instance.
+
+### Step 2
+Next, the script verifies that the pull request has a problem statement. If no problem statement can be extracted, the pull request is deemed invalid and will not be included in the instance creation process.
+
+### Step 3
+Finally, the script checks if any hints are available for the pull request. While the presence of hints is not a strict requirement, having them can provide additional context and improve the overall quality of the instances.
+</Steps>
+
+## Creating Instances
+
+Once the necessary information has been extracted and the pull request has passed the validation checks, the script proceeds to create the task instances. This involves pairing the extracted patches, problem statements, and hints into a structured format that can be used for training or evaluating models.
+
+The resulting instances are then saved to an output file, typically in a JSON or JSONL format, for further processing and use within the SWEBench project.
+
+<Callout type="success">
+By creating instances from pull requests, the SWEBench project leverages real-world code changes and their associated context, ensuring that the dataset is grounded in practical software engineering scenarios.
+</Callout>
+
+In summary, the `build_dataset.py` script plays a crucial role in extracting the necessary information from pull requests and using it to create high-quality task instances for the SWEBench dataset. This process of instance creation is a key component in building a comprehensive dataset for training and evaluating code generation models.
+
+For more information on other components of the SWEBench project, please refer to the [Introduction](/introduction) and the [Utility Functions](/utility-functions) sections.

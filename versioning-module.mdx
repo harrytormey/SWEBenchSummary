@@ -1,0 +1,49 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Versioning Module
+
+The Versioning Module in the SWEBench project is responsible for extracting version information for various libraries and frameworks used in the project. This module plays a crucial role in ensuring that the correct version of a library is used for a given task instance, as library versions can significantly impact the behavior and performance of the underlying code.
+
+The versioning process involves fetching version data from specific webpages or APIs and matching it with the creation dates of task instances. This allows the system to associate the appropriate library versions with each task, providing essential metadata for the evaluation and analysis of model predictions.
+
+<Callout type="info">
+The Versioning Module is designed to be extensible, allowing new libraries and version extraction mechanisms to be easily integrated as the project evolves.
+</Callout>
+
+## Extracting Version Information
+
+The Versioning Module utilizes a combination of web scraping and API interactions to retrieve version data for different libraries. The process generally follows these steps:
+
+<Steps>
+### Step 1: Retrieve Task Instances
+The module first retrieves the task instances from a specified file or path, which contain information about the code changes and problem statements.
+
+### Step 2: Fetch Version Data
+The module then fetches version data from relevant webpages or APIs for the specific library. This involves making HTTP requests and parsing the HTML or JSON content to extract the necessary version information.
+
+### Step 3: Match Versions with Task Instances
+The module matches the retrieved version data with the creation dates of the task instances. This allows it to associate the correct library versions with each task, ensuring that the evaluation and analysis are performed with the appropriate dependencies.
+
+### Step 4: Save Updated Task Instances
+Finally, the module saves the updated task instances with the added version information to a specified output path or file.
+</Steps>
+
+## Potential Improvements
+
+The Versioning Module can be further improved in several areas:
+
+1. **Error Handling**: The module could be enhanced to handle cases where the structure of the version data source changes, potentially causing parsing errors. Implementing more robust error handling and graceful fallbacks would improve the module's reliability.
+
+2. **Caching Mechanisms**: To reduce unnecessary HTTP requests and improve performance, the module could implement caching mechanisms to store and reuse previously fetched version data.
+
+3. **Version Matching Algorithms**: The current version matching algorithm based on task creation dates could be refined to provide more accurate results, especially for cases where multiple versions are released in close succession.
+
+By addressing these areas, the Versioning Module can become more robust, efficient, and capable of handling a wider range of library versions and scenarios.
+
+For detailed information on the specific implementation of the Versioning Module, please refer to the following subsections:
+
+- [Extracting Pydicom Versions](/versioning-module/extracting-pydicom-versions)
+- [Extracting Xarray Versions](/versioning-module/extracting-xarray-versions)
+- [Extracting Matplotlib Versions](/versioning-module/extracting-matplotlib-versions)
+- [Extracting Astropy Versions](/versioning-module/extracting-astropy-versions)
+- [Extracting SQLFluff Versions](/versioning-module/extracting-sqlfluff-versions)

@@ -1,0 +1,59 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Extracting Patches
+
+Extracting patches from pull requests is a crucial step in the instance creation process for the SWEBench dataset. The `build_dataset.py` script is responsible for this task, leveraging custom utility functions to efficiently extract the necessary information.
+
+## The Extraction Process
+
+The patch extraction process involves several key steps:
+
+1. **Retrieving Pull Request Data**: The script first retrieves the pull request data, which typically includes the commit history, file changes, and other relevant information.
+
+2. **Parsing Commit Diffs**: Once the pull request data is available, the script parses the commit diffs to identify the specific code changes made in each commit.
+
+<Callout type="info">
+The script uses the `unidiff` library to parse the commit diffs and extract the necessary information.
+</Callout>
+
+3. **Identifying Minimal Patches**: From the parsed commit diffs, the script then identifies the minimal patches that represent the essential code changes. This is done to ensure that the generated instances focus on the core problem-solving aspects, rather than extraneous code modifications.
+
+4. **Associating Patches with Instances**: Finally, the extracted patches are associated with the corresponding task instances, which typically include the problem statement, code context, and other relevant information.
+
+## Challenges and Considerations
+
+Extracting patches from pull requests can be a complex task, as it involves dealing with various edge cases and potential issues. Some key considerations and challenges include:
+
+1. **Handling Incomplete or Inconsistent Diffs**: Pull requests may sometimes contain incomplete or inconsistent diffs, which can make it challenging to accurately extract the relevant patches. The script needs to be robust enough to handle these scenarios gracefully.
+
+2. **Identifying Minimal Patches**: Determining the minimal patches that represent the core code changes is not a trivial task. The script needs to have a reliable mechanism to identify and extract these patches, ensuring that the generated instances focus on the essential problem-solving aspects.
+
+3. **Associating Patches with Instances**: Linking the extracted patches with the corresponding task instances is crucial for maintaining the integrity and usefulness of the dataset. The script needs to have a robust system for accurately associating these elements.
+
+<Callout type="warning">
+Improper handling of these challenges can lead to inconsistencies or inaccuracies in the generated dataset, which can ultimately impact the quality and reliability of the SWEBench project.
+</Callout>
+
+## Example Usage
+
+Here's an example of how the patch extraction functionality can be used within the `build_dataset.py` script:
+
+```python
+from utils import extract_minimal_patch
+
+# Retrieve pull request data
+pr_data = get_pull_request_data(repo_url, pr_id)
+
+# Extract minimal patches
+patches = extract_minimal_patch(pr_data)
+
+# Associate patches with instances
+for instance in instances:
+    instance.patch = patches[instance.id]
+```
+
+In this example, the `extract_minimal_patch` function is used to extract the minimal patches from the pull request data. The extracted patches are then associated with the corresponding task instances, ensuring that each instance has the relevant code changes attached to it.
+
+By understanding and leveraging the patch extraction functionality, you can effectively create high-quality task instances for the SWEBench dataset, laying the foundation for robust model training and evaluation.
+
+[Go to Instance Creation from Pull Requests](/instance-creation-pull-requests)

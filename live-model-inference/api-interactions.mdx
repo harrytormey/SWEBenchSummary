@@ -1,0 +1,61 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# API Interactions
+
+The SWEBench project interacts with various APIs to facilitate live model inference and generate code patches. Let's dive into the details of how these API interactions are handled.
+
+## Fetching GitHub Issues
+
+The `run_live.py` script retrieves GitHub issues to generate task instances for the live inference process. It uses the `ghapi` library to interact with the GitHub API and fetch the necessary information.
+
+<Steps>
+### Step 1
+The script initializes the `GhApi` class with the appropriate authentication credentials, such as a personal access token or OAuth token.
+
+### Step 2
+The `get_issues` function is called to retrieve a list of GitHub issues from a specified repository and organization. This function uses the GitHub API to fetch the issue data, including the title, description, and other relevant information.
+</Steps>
+
+## Calling OpenAI and Anthropic APIs
+
+The `run_api.py` script is responsible for interacting with the OpenAI and Anthropic APIs to generate text based on the input instances.
+
+<Steps>
+### Step 1
+For the OpenAI API, the script initializes the `openai` library with the appropriate API key. It then uses the `openai.Completion.create` function to generate text based on the input message.
+
+### Step 2
+For the Anthropic API, the script uses the `Anthropic` library to set up the API client with the necessary credentials. It then calls the `Anthropic.generate` function to generate text based on the input message.
+</Steps>
+
+In both cases, the script handles API rate limiting and retries using the `tenacity` library to ensure reliable API interactions.
+
+## Evaluating Predictions and Applying Patches
+
+The `engine_evaluation.py` script is responsible for evaluating the model predictions and applying the generated patches to the test instances. It interacts with the GitHub API to fetch the repository data and clone the necessary files.
+
+<Steps>
+### Step 1
+The script uses the `ghapi` library to interact with the GitHub API and fetch the repository information, such as the URL and branch names.
+
+### Step 2
+The `GitPython` library is used to clone the repository and manage the Git operations, such as checking out the appropriate branch and applying the generated patches.
+</Steps>
+
+The script then runs the tests on the patched instances and logs the results for further analysis.
+
+## Handling API Errors and Retries
+
+To ensure reliable API interactions, the SWEBench project employs several strategies to handle errors and retries.
+
+<Callout type="info">
+The `tenacity` library is used to provide retry functionality for the OpenAI and Anthropic API calls. This allows the script to automatically retry the API requests in case of temporary failures or rate limiting issues.
+</Callout>
+
+<Callout type="warning">
+Error handling is an area that could be improved in the current implementation. The scripts could benefit from more detailed logging and exception management to provide better visibility into API-related issues and failures.
+</Callout>
+
+Overall, the SWEBench project's API interactions are critical for fetching GitHub issues, generating text using language models, and evaluating the model predictions. By leveraging robust libraries and implementing retry mechanisms, the project aims to ensure reliable and efficient API usage.
+
+You can find more information about the other components of the SWEBench project in the [Introduction](/), [Dataset Creation](/dataset-creation), and [Model Loading and Text Generation](/model-loading-text-generation) sections.

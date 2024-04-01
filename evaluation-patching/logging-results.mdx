@@ -1,0 +1,41 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Logging Results
+
+When evaluating the model's performance and the effectiveness of the generated patches, it's crucial to maintain detailed logs of the results. The `engine_evaluation.py` script in the SWEBench codebase is responsible for this task, providing a comprehensive logging mechanism.
+
+## Logging Workflow
+
+The logging workflow in the `engine_evaluation.py` script involves the following steps:
+
+1. **Setting Up Logging**: The script sets up logging using the built-in `logging` module, configuring log levels and output formats to ensure relevant information is captured.
+
+2. **Logging Test Outcomes**: As the evaluation process progresses, the script logs the outcomes of the tests performed on the generated patches. This includes information such as the task ID, the test status (pass, fail, or error), and any relevant error messages.
+
+3. **Parallel Processing Logging**: When executing the evaluation process in parallel, the script ensures that the logging output is properly synchronized across multiple worker processes, avoiding any race conditions or interleaved log entries.
+
+4. **Logging Metadata**: In addition to the test outcomes, the script also logs relevant metadata, such as the repository information, commit details, and any other contextual data that might be useful for analyzing the evaluation results.
+
+## Interpreting Logged Information
+
+The logged information in the `engine_evaluation.py` script can provide valuable insights into the performance of the model and the effectiveness of the generated patches. Here are some key pieces of information you can find in the logs:
+
+1. **Test Status**: The logs will clearly indicate whether a particular test case passed, failed, or encountered an error. This information can help you identify problematic areas and focus your efforts on improving the model's performance.
+
+2. **Error Messages**: When a test case fails or encounters an error, the corresponding error messages will be logged. These messages can provide valuable clues about the underlying issues and help you debug the problems.
+
+3. **Metadata**: The logged metadata, such as repository information and commit details, can assist in correlating the evaluation results with the specific code changes and the context in which they were made.
+
+<Callout type="info">
+It's important to note that the logging in the `engine_evaluation.py` script is designed to be informative and easy to understand, making it easier for developers to analyze the evaluation results and identify areas for improvement.
+</Callout>
+
+## Customizing Logging
+
+If needed, you can further customize the logging in the `engine_evaluation.py` script to suit your specific requirements. This may involve:
+
+- Adjusting the log levels to control the amount of information being logged.
+- Modifying the log format to include additional fields or reorganize the logged data.
+- Integrating the logging with external systems, such as a centralized logging platform or a monitoring tool, for better visibility and analysis.
+
+By leveraging the logging capabilities in the `engine_evaluation.py` script, you can gain valuable insights into the model's performance and the effectiveness of the generated patches, ultimately driving improvements in the SWEBench project.

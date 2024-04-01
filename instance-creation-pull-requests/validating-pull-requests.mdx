@@ -1,0 +1,52 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Validating Pull Requests
+
+When creating task instances from pull requests, it's important to validate the pull requests to ensure they meet certain criteria. This helps maintain the quality and consistency of the dataset. The `build_dataset.py` script in the SWEBench project includes functions to validate pull requests before creating task instances.
+
+## Checking Pull Request Validity
+
+<Callout type="info">
+Before creating task instances, the script checks the validity of the pull requests to ensure they meet certain criteria. This includes checking the following:
+</Callout>
+
+- **Merged Status**: The script checks if the pull request has been merged into the repository. It ensures that the pull request has been successfully integrated into the codebase.
+
+- **Commit Count**: The script checks the number of commits associated with the pull request. It may filter out pull requests with an excessive number of commits, as they could be less focused or more complex.
+
+- **File Changes**: The script examines the number of files changed in the pull request. It may filter out pull requests that modify too many files, as they could be addressing multiple issues at once.
+
+- **Test Status**: The script checks the status of any automated tests associated with the pull request. It ensures that the pull request passes all relevant tests, indicating that the changes are sound and do not introduce regressions.
+
+By applying these validation checks, the script can filter out pull requests that do not meet the desired criteria, ensuring that the task instances created are of high quality and suitable for the SWEBench project.
+
+## Implementing Validation Checks
+
+The validation checks are implemented in the `build_dataset.py` script using the utility functions provided in the `utils.py` module. Here's a high-level overview of the process:
+
+<Steps>
+### Step 1
+The script retrieves the pull request data from a specified JSONL file. This file contains the necessary information about the pull requests, such as the repository, branch, and commit details.
+
+### Step 2
+For each pull request, the script checks the merged status using the `is_merged()` function from the `utils.py` module. This function interacts with the GitHub API to determine if the pull request has been successfully merged.
+
+### Step 3
+The script then checks the number of commits associated with the pull request using the `get_all_commits()` function from the `utils.py` module. This function retrieves the commit details and allows the script to filter out pull requests with an excessive number of commits.
+
+### Step 4
+Next, the script examines the number of files changed in the pull request using the `get_files_changed()` function from the `utils.py` module. This function calculates the number of files modified, added, or deleted in the pull request.
+
+### Step 5
+Finally, the script checks the test status of the pull request using the `get_test_status()` function from the `utils.py` module. This function interacts with the repository and the associated commit statuses to determine if the tests have passed for the pull request.
+</Steps>
+
+By performing these validation checks, the `build_dataset.py` script ensures that only high-quality pull requests are selected for creating task instances, improving the overall dataset quality.
+
+## Customizing Validation Criteria
+
+The validation criteria used in the `build_dataset.py` script can be customized based on the specific requirements of the SWEBench project. For example, you may want to adjust the thresholds for the number of commits or files changed, or introduce additional checks based on the project's needs.
+
+To customize the validation criteria, you can modify the respective functions in the `utils.py` module or add new functions to handle the desired checks. By making these changes, you can tailor the validation process to better suit the project's objectives and ensure that the created task instances meet the desired quality standards.
+
+Remember, the goal of the validation process is to filter out pull requests that do not align with the project's requirements, ensuring that the resulting dataset is of the highest quality and relevance. By implementing a robust validation process, you can improve the overall reliability and usefulness of the SWEBench dataset.

@@ -1,0 +1,46 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Introduction
+
+The SWEBench project is a comprehensive framework for evaluating large language models (LLMs) on software engineering tasks. This project aims to provide a standardized benchmark for assessing the performance of LLMs in tackling various software engineering challenges, such as code understanding, bug fixing, and code generation.
+
+In the software engineering domain, the rapid advancements in LLM technologies have generated a lot of excitement and potential for automating various tasks. SWEBench is designed to serve as a centralized platform for researchers, developers, and practitioners to evaluate the capabilities of these models and drive further progress in the field.
+
+## The Purpose of SWEBench
+
+The primary goals of the SWEBench project are:
+
+1. **Establishing a Standardized Benchmark**: SWEBench aims to create a standardized and comprehensive benchmark for evaluating LLMs on a diverse set of software engineering tasks. This benchmark will help researchers and developers assess the performance of their models in a consistent and comparable manner.
+
+2. **Fostering Collaboration and Innovation**: By providing a shared platform for evaluating LLMs, SWEBench encourages collaboration among researchers and developers. This collaborative effort can lead to the development of more robust and efficient LLM architectures and techniques for software engineering applications.
+
+3. **Driving Progress in the Field**: The insights and findings from the SWEBench project can directly inform the development of more capable and reliable LLMs for software engineering tasks. This, in turn, can accelerate the adoption of these technologies in real-world software development workflows.
+
+## Key Components of SWEBench
+
+The SWEBench project consists of several key components that work together to achieve its goals:
+
+<Callout type="info">
+The SWEBench project consists of several key components, including:
+
+- **Versioning Module**: Responsible for extracting version information from various libraries and frameworks.
+- **Dataset Creation**: Handles the creation of instances for model training, including tokenization and evaluation.
+- **LLaMA Model Architecture**: Defines the architecture of the LLaMA model, including attention mechanisms, MLP layers, and rotary embeddings.
+- **Live Model Inference**: Facilitates running live model inference based on GitHub issues, interacting with various APIs.
+- **Model Loading and Text Generation**: Compares the approaches of loading models and generating text using the LLaMA model and OpenAI/Anthropic APIs.
+- **Evaluation and Patching**: Evaluates model predictions and applies patches to test instances, setting up test environments and logging results.
+- **Utility Functions**: Provides a set of utility functions for environment setup, file operations, and data processing.
+- **Context Management**: Handles the execution of commands and the setup of testbed environments for running tests.
+- **Dataset Filtering**: Defines criteria for filtering task instances to create a lite version of the dataset.
+- **Instance Creation from Pull Requests**: Extracts patches, problem statements, and hints from pull requests to create task instances.
+</Callout>
+
+These components work together to create a comprehensive framework for evaluating LLMs on software engineering tasks. Each component plays a crucial role in the overall functionality of the SWEBench project.
+
+## Exploring the SWEBench Documentation
+
+Throughout this documentation, you will find detailed explanations and walkthroughs of the various components of the SWEBench project. You can navigate to the specific sections of interest using the links provided in the table of contents.
+
+For example, if you're interested in learning more about the [LLaMA Model Architecture](/llama-model-architecture), you can click on the corresponding link to access that section. Similarly, if you want to understand the [Instance Creation from Pull Requests](/instance-creation-pull-requests) process, you can navigate to that section.
+
+By exploring the different sections of the SWEBench documentation, you'll gain a deeper understanding of the project's goals, its key components, and the underlying mechanisms that drive its functionality. This knowledge will be invaluable for researchers, developers, and practitioners who are interested in leveraging LLMs for software engineering tasks.

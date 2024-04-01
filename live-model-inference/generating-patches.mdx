@@ -1,0 +1,46 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Generating Patches
+
+In the context of the SWEBench project, the process of **generating patches** is a crucial step in the overall workflow. The `run_live.py` script is responsible for this task, utilizing the model predictions and applying them to the test instances.
+
+The **primary goal** of generating patches is to create executable code modifications that can be applied to the existing codebase to address the identified issues. This step is essential for evaluating the effectiveness of the model's predictions and validating the usefulness of the generated solutions.
+
+## Handling GitHub Issues
+
+The `run_live.py` script interacts with GitHub to fetch the relevant issue statements and code patches. It leverages the `ghapi` library to communicate with the GitHub API and retrieve the necessary information.
+
+<Callout type="info">
+The script fetches the issue statements and associated code patches from the GitHub repository, preparing them for the model inference and patch generation process.
+</Callout>
+
+## Generating Patches from Model Predictions
+
+Once the input data is gathered, the script proceeds to generate the patches based on the model's predictions. This involves several key steps:
+
+<Steps>
+### Step 1: Passing Input to the Model
+The script passes the issue statements and any available code context to the model, triggering the text generation process. The model then produces a predicted solution or patch for the given input.
+
+### Step 2: Extracting the Patch
+The script extracts the generated patch from the model's output. This involves parsing the text and identifying the specific code changes that the model has suggested.
+
+### Step 3: Applying the Patch
+The script then applies the generated patch to the original codebase, creating a modified version that incorporates the model's suggested changes.
+</Steps>
+
+## Evaluating the Generated Patches
+
+After the patches have been generated, the script proceeds to evaluate their effectiveness. This involves running tests on the modified codebase to ensure that the patches address the original issues without introducing new problems.
+
+The evaluation process may leverage additional tools and libraries, such as `unidiff` for analyzing the code changes, and `tqdm` for tracking the progress of the evaluation.
+
+<Callout type="warning">
+It's important to note that the effectiveness of the generated patches heavily depends on the accuracy and reliability of the underlying model. Careful evaluation and validation of the patches are crucial to ensure the quality and usefulness of the generated solutions.
+</Callout>
+
+## Conclusion
+
+The process of generating patches in the SWEBench project is a crucial step that bridges the gap between the model's predictions and the real-world application of those solutions. By leveraging the GitHub API, extracting relevant information, and applying the generated patches, the project aims to provide a comprehensive framework for evaluating the performance of language models in the context of software engineering tasks.
+
+For more information on the live model inference process, you can refer to the [Creating Instances](/live-model-inference/creating-instances-live) and [Calling Models](/live-model-inference/calling-models) sections.

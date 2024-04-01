@@ -1,0 +1,6 @@
+{
+  "attention-mechanism": "Attention Mechanism",
+  "mlp-layers": "MLP Layers",
+  "rotary-embeddings": "Rotary Embeddings",
+  "model-configurations": "Model Configurations"
+}

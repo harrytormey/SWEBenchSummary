@@ -1,0 +1,34 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Creating Instances
+
+The `create_instance.py` script is responsible for generating instances for model training based on issue statements and code patches. This is a crucial step in the dataset creation process, as these instances serve as the foundation for training the language model to perform software engineering tasks.
+
+## Generating Prompts
+
+The script defines functions to generate prompts from the issue statements and code patches. These prompts combine the problem description with the code changes, creating a comprehensive input for the language model to work with. The prompts are designed to provide the necessary context for the model to understand the task and generate relevant code changes.
+
+<Callout type="info">
+Example prompt:
+"The code has a bug where it fails to handle edge cases in the input data. Please fix the bug and provide a patch."
+</Callout>
+
+## Adding Line Numbers
+
+To enhance the readability and usability of the code patches, the script also includes functions to add line numbers to the code. This feature helps the model better understand the context of the changes, making it easier to generate accurate and targeted code patches.
+
+## Creating Code Text
+
+The script also handles the creation of the code text, which is the text representation of the code changes. This includes extracting the necessary information from the code patches and formatting it in a way that the language model can effectively process.
+
+<Steps>
+### Step 1: Extracting Patch Information
+The script uses the `unidiff` library to extract the relevant information from the code patches, such as the file paths, line numbers, and code changes.
+
+### Step 2: Formatting Code Text
+The extracted information is then formatted into a structured text representation, with each code change marked with the file, line numbers, and the actual code changes.
+</Steps>
+
+By combining the issue statements, code patches, and the formatted code text, the `create_instance.py` script generates comprehensive instances that can be used to train the language model effectively. These instances provide the necessary context and information for the model to learn how to generate and apply relevant code patches based on problem descriptions.
+
+Remember, the quality of the instances directly impacts the performance of the language model, so it's crucial to ensure that the instance generation process is thorough and accurate. If you have any questions or need further assistance, feel free to refer to the [Extracting Patches](/utility-functions/extracting-patches) or [Splitting Instances](/utility-functions/splitting-instances) sections.

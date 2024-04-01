@@ -1,0 +1,6 @@
+{
+  "loading-llama-model": "Loading LLaMA Model",
+  "generating-text-llama": "Generating Text with LLaMA",
+  "interacting-openai-api": "Interacting with OpenAI API",
+  "interacting-anthropic-api": "Interacting with Anthropic API"
+}

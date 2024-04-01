@@ -1,0 +1,84 @@
+import { Callout, Steps, Step } from "nextra-theme-docs";
+
+# Applying Filtering Criteria
+
+In the process of creating a **lite** version of the SWEBench dataset, we need to apply specific filtering criteria to select a subset of the task instances. This is crucial to reduce the size of the dataset while maintaining the most valuable and representative samples for model training and evaluation.
+
+<Callout type="info">
+The criteria for filtering task instances are defined in the `criteria.py` file, which we will explore in the next section. Here, we'll focus on how these criteria are applied to the dataset.
+</Cooldown>
+
+## Filtering Task Instances
+
+The main function responsible for applying the filtering criteria is `filter_instances` in the `make_lite.py` file. This function takes a list of task instances and a list of criteria functions as input, and returns a filtered list of instances that pass the specified criteria.
+
+<Steps>
+### Step 1: Iterate over the task instances
+The `filter_instances` function iterates over each task instance in the input list.
+
+### Step 2: Apply the criteria functions
+For each task instance, the function applies the provided criteria functions to check if the instance meets the specified requirements. This is done by calling each criteria function and checking the return value.
+
+### Step 3: Filter the instances
+If the task instance passes all the criteria, it is included in the filtered list. If any of the criteria fail, the instance is excluded from the final dataset.
+
+### Step 4: Return the filtered instances
+The function returns the filtered list of task instances that meet the specified criteria.
+</Steps>
+
+Here's an example of how the `filter_instances` function might be used:
+
+```python
+from collect.make_lite.criteria import is_small_patch, has_test_case
+
+task_instances = load_task_instances() # Load the initial task instances
+criteria_functions = [is_small_patch, has_test_case] # Define the filtering criteria
+
+filtered_instances = filter_instances(task_instances, criteria_functions)
+```
+
+In this example, we first load the initial task instances from the dataset. Then, we define two criteria functions: `is_small_patch` and `has_test_case`. These functions are passed to the `filter_instances` function, which applies the criteria and returns the filtered list of task instances.
+
+## Criteria Functions
+
+The criteria functions used for filtering the task instances are defined in the `criteria.py` file. These functions check for specific patterns or characteristics in the task instances and return a boolean value indicating whether the instance meets the specified criteria.
+
+For example, the `is_small_patch` function checks if the size of the code patch is within a certain threshold:
+
+```python
+def is_small_patch(instance, max_size=500):
+    """
+    Check if the size of the code patch is within the specified maximum size.
+    
+    Args:
+        instance (dict): A task instance dictionary.
+        max_size (int): The maximum allowed size of the code patch.
+        
+    Returns:
+        bool: True if the patch size is within the limit, False otherwise.
+    """
+    patch = instance.get('patch', '')
+    return len(patch.split('\n')) <= max_size
+```
+
+The `has_test_case` function checks if the task instance has an associated test case:
+
+```python
+def has_test_case(instance):
+    """
+    Check if the task instance has an associated test case.
+    
+    Args:
+        instance (dict): A task instance dictionary.
+        
+    Returns:
+        bool: True if the instance has a test case, False otherwise.
+    """
+    return 'test_case' in instance and instance['test_case'] is not None
+```
+
+By combining these criteria functions, you can create more complex filtering rules to select the most relevant task instances for your specific use case.
+
+Remember, the criteria functions can be easily extended or modified to suit your needs. You can add more criteria, adjust the thresholds, or even introduce custom logic based on your requirements.
+
+[Link to Defining Filtering Criteria](/dataset-filtering/defining-filtering-criteria)
